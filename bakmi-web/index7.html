@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waroeng Bakmi Jawa Mbak Lis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #A32828; /* Merah Marun */
+            --secondary-color: #FFC107; /* Kuning Emas */
+            --text-color: #4A4A4A;
+            --bg-color: #F5F5DC; /* Warna Krem */
+            --dark-brown: #5C2C1D;
+            --border-radius: 8px;
+            --box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            scroll-behavior: smooth;
+            position: relative;
+        }
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('wooden-bg.jpg');
+            background-size: cover; background-position: center;
+            opacity: 0.1; z-index: -1;
+        }
+
+        .header {
+            background-color: var(--dark-brown);
+            color: white; padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .header-container {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700;
+            line-height: 1; text-transform: uppercase;
+        }
+        .navbar .nav-link {
+            color: white; text-decoration: none; margin-left: 2.5rem;
+            font-weight: 600; font-size: 1rem; transition: color 0.3s ease;
+        }
+        .navbar .nav-link:hover { color: var(--secondary-color); }
+        .cart-btn {
+            background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;
+            transition: transform 0.2s ease; margin-left: 20px;
+        }
+        .cart-btn:hover { transform: scale(1.1); }
+
+        .hero {
+            background-image: url('poster-bakmi.jpg');
+            background-size: cover; background-position: center;
+            height: 100vh; display: flex; justify-content: center; align-items: center;
+            text-align: center; color: white; position: relative; margin-top: 80px;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);
+        }
+        .hero-content { position: relative; z-index: 1; padding: 0 1rem; }
+        .hero-content h2 {
+            font-family: 'Playfair Display', serif; font-size: 3.5rem;
+            font-weight: 700; margin-bottom: 1rem;
+        }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 2.5rem; }
+        .btn {
+            display: inline-block; background-color: var(--secondary-color);
+            color: var(--dark-brown); padding: 0.8rem 2.5rem;
+            text-decoration: none; border-radius: 50px; font-weight: 600;
+        }
+        .btn:hover { background-color: #FFD54F; }
+
+        .main-content { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        .section-title {
+            text-align: center; font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; margin-bottom: 3rem; color: var(--primary-color);
+            position: relative; padding-bottom: 1rem;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); width: 100px; height: 4px;
+            background-color: var(--secondary-color); border-radius: 2px;
+        }
+        .menu-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .menu-item {
+            background-color: white; border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow); overflow: hidden;
+            text-align: center; border: 2px solid var(--dark-brown);
+        }
+        .menu-img { width: 100%; height: 220px; object-fit: cover; }
+        .item-details { padding: 1.5rem; }
+        .item-title { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); }
+        .item-price { font-size: 1.2rem; color: var(--dark-brown); font-weight: 600; }
+        .item-description { font-size: 0.9rem; color: #666; margin: 1rem 0; }
+        .add-to-cart-btn {
+            background-color: var(--primary-color); color: white;
+            border: none; padding: 0.8rem 1.5rem; border-radius: 50px;
+            cursor: pointer; font-weight: 600;
+        }
+
+        .about-section, .contact-section { padding: 6rem 0; text-align: center; }
+        .about-section p { max-width: 800px; margin: 0 auto; font-size: 1.1rem; }
+
+        .footer {
+            background-color: var(--dark-brown);
+            color: white; text-align: center; padding: 2rem;
+        }
+
+        /* CSS untuk Keranjang */
+        .cart-sidebar {
+            position: fixed; right: 0; top: 0; width: 350px; height: 100%;
+            background-color: white; box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%); transition: transform 0.4s ease-in-out;
+            padding: 1.5rem; display: flex; flex-direction: column; z-index: 1001;
+        }
+        .cart-sidebar.open { transform: translateX(0); }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 1rem; margin-bottom: 1rem; }
+        .cart-header h3 { color: var(--primary-color); }
+        .close-cart-btn { background: none; border: none; font-size: 2rem; cursor: pointer; color: #aaa; }
+        .cart-items { flex-grow: 1; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #eee; }
+        .cart-item-info { flex-grow: 1; }
+        .cart-item-name { font-weight: 600; }
+        .cart-item-price { color: #777; font-size: 0.9rem; }
+        .cart-footer { padding-top: 1rem; border-top: 2px solid #eee; }
+        .total-price { font-size: 1.2rem; font-weight: 700; text-align: right; margin-bottom: 1rem; }
+        .checkout-btn {
+            width: 100%; background-color: var(--secondary-color); color: var(--dark-brown);
+            padding: 1rem; border: none; border-radius: var(--border-radius);
+            font-weight: 700; cursor: pointer; text-decoration: none;
+            display: inline-block; text-align: center;
+        }
+        .checkout-btn:hover { background-color: #FFD54F; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <h1 class="logo">Waroeng<br>Bakmi Jawa Mbak Lis</h1>
+        <nav class="navbar">
+            <a href="#menu" class="nav-link">Menu</a>
+            <a href="#about" class="nav-link">Waroeng</a>
+            <a href="#contact" class="nav-link">Kontak</a>
+        </nav>
+        <button class="cart-btn" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i></button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h2>Cita Rasa Otentik Pedesaan</h2>
+        <p>Diolah dengan bumbu rempah pilihan, resep rahasia turun-temurun.</p>
+        <a href="#menu" class="btn">Lihat Menu</a>
+    </div>
+</section>
+
+<main class="main-content">
+
+    <section class="special-offer" style="background-color: var(--primary-color); color:white; padding:2.5rem; text-align:center; border-radius:var(--border-radius); margin-bottom:3rem;">
+        <h2 style="font-family:'Playfair Display',serif; font-size:2.2rem;">Promo Spesial Bulan Ini!</h2>
+        <p style="margin:1rem 0;">Diskon <strong>20%</strong> untuk Bakmi Jawa Goreng setiap hari Jumat.</p>
+        <a href="#menu" class="btn">Pesan Sekarang</a>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <h2 class="section-title">Menu Pilihan</h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="bakmi-web/bakmi-goreng.PNG" alt="bakmi-goreng" class="menu-img">
+                <div class="item-details">
+                    <h3 class="item-title">Bakmi Jawa Goreng</h3>
+                    <p class="item-price">Rp15.000</p>
+                    <p class="item-description">Perpaduan mi dan nasi goreng dengan bumbu rempah otentik.</p>
+                    <button class="add-to-cart-btn" data-id="1" data-name="Bakmi Jawa Goreng" data-price="15000">Tambah ke Keranjang</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="bakmi-web/magelangan.PNG" alt="magelangan" class="menu-img">
+                <div class="item-details">
+                    <h3 class="item-title">Magelangan</h3>
+                    <p class="item-price">Rp18.000</p>
+                    <p class="item-description">Kombinasi nasi dan mi yang digoreng dengan bumbu spesial khas Jawa.</p>
+                    <button class="add-to-cart-btn" data-id="2" data-name="Magelangan" data-price="18000">Tambah ke Keranjang</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="bakmi-web/bakmi-godhok.PNG" alt="bakmi-godhok" class="menu-img">
+                <div class="item-details">
+                    <h3 class="item-title">Bakmi Jawa Godhok</h3>
+                    <p class="item-price">Rp15.000</p>
+                    <p class="item-description">Mi kuah dengan cita rasa rempah hangat, cocok dinikmati saat hujan.</p>
+                    <button class="add-to-cart-btn" data-id="3" data-name="Bakmi Jawa Godhok" data-price="15000">Tambah ke Keranjang</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <section class="opening-hours" style="margin-top:4rem;">
+        <h2 class="section-title">Jam Buka</h2>
+        <table style="margin:0 auto; border-collapse: collapse; font-size:1rem; color:#333;">
+            <tr><td>Senin - Jumat</td><td style="padding:0 1rem;">:</td><td>10.00 - 22.00</td></tr>
+            <tr><td>Sabtu - Minggu</td><td>:</td><td>09.00 - 23.00</td></tr>
+            <tr><td>Hari Libur Nasional</td><td>:</td><td>09.00 - 21.00</td></tr>
+        </table>
+    </section>
+
+    <section class="gallery" style="margin-top:4rem;">
+        <h2 class="section-title">Galeri Restoran</h2>
+        <div class="menu-grid">
+            <img src="bakmi-web/pelanggan.PNG" alt="pelanggan" class="menu-img">
+            <img src="bakmi-web/hidangan-dimeja.PNG" alt="hidangan-dimeja" class="menu-img">
+        </div>
+    </section>
+
+    <section class="chef-profile" style="margin-top:4rem; text-align:center;">
+        <h2 class="section-title">Mengenal Mbak Lis</h2>
+        <p>Dengan pengalaman lebih dari 20 tahun memasak, Mbak Lis menghadirkan cita rasa autentik pedesaan Jawa ke meja makan Anda. Setiap sajian dibuat dengan sepenuh hati dan bahan segar pilihan.</p>
+    </section>
+
+    <section id="about" class="about-section">
+        <h2 class="section-title">Waroeng</h2>
+        <p>Waroeng Bakmi Jawa Mbak Lis menyajikan hidangan tradisional dengan resep rahasia turun-temurun. Kami menggunakan bahan-bahan segar pilihan untuk menjaga kualitas dan keaslian rasa.</p>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Hubungi Kami</h2>
+        <p><i class="fas fa-phone-alt"></i> 085800614243</p>
+        <p><i class="fas fa-map-marker-alt"></i> Siliran I, RT 20/RW 10, Karang Sewu, Galur, Kulon Progo</p>
+    </section>
+
+</main>
+
+<aside class="cart-sidebar">
+    <div class="cart-header">
+        <h3>Keranjang</h3>
+        <button class="close-cart-btn" onclick="toggleCart()">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+        <div class="total-price">Total: <span id="cart-total">Rp0</span></div>
+        <a href="#" id="checkout-link" class="checkout-btn">Checkout via WhatsApp</a>
+    </div>
+</aside>
+
+<footer class="footer">
+    <p>&copy; 2025 Waroeng Bakmi Jawa Mbak Lis.</p>
+</footer>
+
+<script>
+    const cartSidebar = document.querySelector('.cart-sidebar');
+    function toggleCart() {
+        cartSidebar.classList.toggle('open');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotalSpan = document.getElementById('cart-total');
+        const checkoutLink = document.getElementById('checkout-link');
+
+        // Ganti dengan nomor WhatsApp Anda
+        const whatsappNumber = "6285800614243";
+
+        let cart = [];
+
+        function updateCartDisplay() {
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; color: #777;">Keranjang kosong.</p>';
+                checkoutLink.style.display = 'none';
+            } else {
+                cart.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.innerHTML = `
+                        <div class="cart-item-info">
+                            <span class="cart-item-name">${item.name}</span>
+                            <br>
+                            <span class="cart-item-price">${formatRupiah(item.price)} x ${item.quantity}</span>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="remove-from-cart-btn" data-id="${item.id}">&times;</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+                    total += item.price * item.quantity;
+                });
+                checkoutLink.style.display = 'block';
+            }
+
+            cartTotalSpan.textContent = formatRupiah(total);
+        }
+
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
+        }
+
+        addToCartBtns.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const id = parseInt(e.target.dataset.id);
+                const name = e.target.dataset.name;
+                const price = parseInt(e.target.dataset.price);
+                const existingItem = cart.find(item => item.id === id);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ id, name, price, quantity: 1 });
+                }
+                updateCartDisplay();
+                toggleCart();
+            });
+        });
+
+        cartItemsContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-from-cart-btn')) {
+                const idToRemove = parseInt(e.target.dataset.id);
+                cart = cart.filter(item => item.id !== idToRemove);
+                updateCartDisplay();
+            }
+        });
+
+        checkoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (cart.length > 0) {
+                const message = createWhatsAppMessage();
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+                window.open(whatsappUrl, '_blank');
+            } else {
+                alert("Keranjang Anda masih kosong!");
+            }
+        });
+
+        function createWhatsAppMessage() {
+            let message = "Halo Mbak Lis, saya ingin memesan:\n\n";
+            cart.forEach(item => {
+                message += `- ${item.name} (x${item.quantity}) - ${formatRupiah(item.price * item.quantity)}\n`;
+            });
+            const totalHarga = document.getElementById('cart-total').textContent;
+            message += `\nTotal: ${totalHarga}\n\nTerima kasih!`;
+            return encodeURIComponent(message);
+        }
+        updateCartDisplay();
+    });
+</script>
+
+</body>
+</html>
